@@ -1,0 +1,17 @@
+# routing intermediates (the routed board is m-card.kicad_pcb)
+*.dsn
+*.ses
+freerouting.jar
+*.log
+logs/
+# KiCad local state and backups
+*.kicad_prl
+*-backups/
+fp-info-cache
+# fab step by-products (the zip holds the Gerbers and drill)
+fab/gerbers/
+fab/drc.json
+fab/pos.csv
+# 3D models fetched for the renders (KiCad's, CC-BY-SA 4.0 with an exception)
+3d/
+__pycache__/

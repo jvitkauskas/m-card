@@ -129,3 +129,5 @@ Everything here (the scripts, the board, the generated files) is dedicated to th
 KiCad's standard footprints are CC-BY-SA 4.0 with an exception that leaves designs using them free to be licensed any
 way. The 3D models that `render` downloads are KiCad's too, under the same terms. They're only used for the pictures
 and aren't part of this repository.
+
+Related: try FM-1 firmwares in the browser with the free community [FM-1 Emulator](https://fm1-emulator.atst.tools/).

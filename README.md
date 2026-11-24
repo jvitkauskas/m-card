@@ -1,6 +1,6 @@
 # m-card
 
-A small add-on board (30 × 25.2 mm) that gives the **M-VAVE FM-1** a microSD card slot. **No soldering to the FM-1 is
+A small add-on board (30 × 25.2 mm) that gives the **M-VAVE FM-1 or SMK-37** a microSD card slot. **No soldering to the FM-1 or SMK-37 is
 needed.** The board sits under the audio jacks and plugs in between the FM-1's LCD and its main board, so the card
 shares the LCD's SPI bus.
 

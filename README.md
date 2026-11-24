@@ -8,10 +8,6 @@ shares the LCD's SPI bus.
 |---|---|
 | ![top](docs/render-top.png) | ![bottom](docs/render-bottom.png) |
 
-> **Status: untested prototype.** The board's fit has been checked with a paper template on a real FM-1, but no board
-> has been made or tested yet. Order a small batch, and expect changes. The card also needs FM-1 firmware that knows
-> about it: that support is being worked on in [m-bootloader](https://github.com/jvitkauskas/m-bootloader).
-
 ## I just want to order a board
 
 Everything you need is already in this repository. You don't have to install KiCad or run anything.

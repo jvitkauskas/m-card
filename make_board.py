@@ -13,7 +13,7 @@ y = 200 - v). Fit checked with a paper template on the FM-1 (2026-11-03).
   python3 make_board.py render  # docs/render-top.png, docs/render-bottom.png
 
 Nets (microSD: 1 DAT2, 2 CS, 3 DI, 4 VDD, 5 CLK, 6 VSS, 7 DAT0/DO, 8 DAT1; J12's lines numbered as the FM-1's cable):
-  2 MISO   -> R1 220 -> DAT0, R7 47k up
+  2 MISO   -> R1 150 -> DAT0, R7 47k up
   3 LCD_CS -> U1 74LVC1G04 -> CARD_CS (the card is selected whenever the LCD is not), R4 47k down
   4 CLK    -> R5 470 -> SD_CLK
   5 MOSI   -> R6 470 -> SD_DI
@@ -221,7 +221,7 @@ def build():
     C1 = C("C1", "10uF", 102.3, 69.9, "C15850")
     R6 = R("R6", "470", 104.9, 69.9, "C17710")
     R5 = R("R5", "470", 107.5, 69.9, "C17710")
-    R1 = R("R1", "220", 110.1, 69.9, "C17557")
+    R1 = R("R1", "150", 110.1, 69.9, "C17471")   # (v1.0 had 220, which held the FM-1 to 8 MHz: 150 reads at 12)
     R8 = R("R8", "47k", 99.9, 69.9, "C17713")    # (CMD pulled up on the card side, as the SD spec asks)
 
     LINES = {1: "GND", 2: "MISO", 3: "LCD_CS", 4: "CLK", 5: "MOSI", 6: "LCD_6", 7: "3V3", 8: "LCD_8", 9: "LCD_9",
@@ -291,8 +291,9 @@ def build():
     label("contacts up", 90.0, 66.3)
     label("J12 cable", 90.6, 54.5)
     label("contacts down", 90.6, 52.9)
-    label("m-card", 99.0, 64.6, 1.4, pcbnew.B_SilkS)
-    label("for FM-1  CC0-1.0", 99.0, 62.6, layer=pcbnew.B_SilkS)
+    label("m-card", 98.2, 64.6, 1.4, pcbnew.B_SilkS)          # (u 98.2 keeps the lines clear of the vias at each end)
+    label("for FM-1 and SMK-37", 98.2, 62.6, layer=pcbnew.B_SilkS)
+    label("CC0-1.0", 98.2, 60.7, layer=pcbnew.B_SilkS)
     ds.SetAuxOrigin(V(*T(LEFT, BOT)))
     return board
 

@@ -16,14 +16,12 @@ Everything you need is already in this repository. You don't have to install KiC
 
 Upload [`fab/m-card-gerbers.zip`](fab/m-card-gerbers.zip) to [JLCPCB](https://jlcpcb.com) or any other PCB maker that
 takes Gerbers. The size (30 × 25.2 mm) is read from the files, and the design rules are standard (0.2 mm tracks and
-spacing, 0.3 mm holes), so the default settings work. A few are worth a look:
+spacing, 0.3 mm holes), so the default settings work. Two are worth a look:
 
 | Setting | Choice | Notes |
 |---|---|---|
 | Layers | 2 | |
-| PCB thickness | 1.0 mm recommended; 1.6 mm is fine | Thinner leaves more room under the FM-1's cover. Don't pay extra for it. |
 | Surface finish | HASL (lead-free or with lead) | The cheap default, and the easiest to hand-solder. ENIG has flatter pads, but it's optional and often costs several times more. OSP is fine if you'll solder the boards soon, since it doesn't keep well. |
-| Mark on PCB | "Remove mark" if it's free | Otherwise JLC prints its order number somewhere on the board. |
 
 ### 2. Buy the parts
 
@@ -38,7 +36,7 @@ small resistors and capacitors are handy.
 | 1 | U1 | 74LVC1G04 inverter, SOT-23-5 (TI SN74LVC1G04DBVR) | C7827 |
 | 5 | R2, R3, R4, R7, R8 | 47 kΩ, 0805 | C17713 |
 | 2 | R5, R6 | 470 Ω, 0805 | C17710 |
-| 1 | R1 | 220 Ω, 0805 | C17557 |
+| 1 | R1 | 150 Ω, 0805 | C17471 |
 | 1 | C1 | 10 µF, 0805 | C15850 |
 | 1 | C2 | 100 nF, 0805 | C49678 |
 | 1 | | 10-pin, 0.5 mm pitch FFC cable, about 80 mm, contacts on the same side at both ends ("type A") | |
@@ -85,7 +83,7 @@ to J3, and the card taps four of them:
 
 | J12 line | Signal | On the card side |
 |---|---|---|
-| 2 | MISO (shared with the LCD's D/C) | → 220 Ω → card DO (DAT0), 47k pull-up |
+| 2 | MISO (shared with the LCD's D/C) | → 150 Ω → card DO (DAT0), 47k pull-up |
 | 3 | LCD chip select | → 74LVC1G04 inverter → card CS: the card is selected whenever the LCD isn't. 47k pull-down keeps the card deselected during reset. |
 | 4 | CLK | → 470 Ω → card CLK |
 | 5 | MOSI | → 470 Ω → card DI (CMD), 47k pull-up |
@@ -95,6 +93,17 @@ to J3, and the card taps four of them:
 DAT1 and DAT2 have 47k pull-ups. The series resistors limit the current if the MCU and the card ever drive a line at
 the same time, and they set a ceiling on the SPI clock. Firmware should start the card slowly and raise the clock
 only once reads come back with good checksums.
+
+### R1 and the card's speed (v1.1)
+
+R1 is what limits how fast an FM-1 can read the card: the card's DO goes through it into the LCD's D/C line, which
+has a capacitor to ground on the FM-1's board. v1.0 boards have 220 Ω there, and with it an FM-1 reads its card
+cleanly at up to 9.6 MHz but not at 12, so the m-apps driver settles at 8 MHz. From v1.1 it's 150 Ω, and the FM-1
+reads at 12 MHz: in tests, 256 MiB read with no errors, and USB disk mode went from 724 to about 850 KB/s. An SMK-37
+read up to 16 MHz with it. The m-apps driver runs the card at 12 MHz on both.
+
+To speed up a v1.0 board, replace R1 with 150 Ω, or solder a 510 Ω on top of it (220 ∥ 510 ≈ 154 Ω, tested on both
+units). Don't go much lower: R1 also limits the current if the card and the FM-1 ever drive that line at once.
 
 ## Changing the design
 

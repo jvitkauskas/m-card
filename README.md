@@ -72,9 +72,9 @@ The silkscreen next to each socket repeats which way the cable's contacts face, 
 
 ### Having JLC assemble it instead
 
-[`fab/bom.csv`](fab/bom.csv) and [`fab/cpl.csv`](fab/cpl.csv) are the parts list and placement file in JLC's format.
-Before you pay, check every part's rotation in JLC's placement preview: their library sometimes disagrees with
-KiCad's. J1, J2 and J3 are "extended" parts at JLC, which adds a small fee per part type.
+Enable "PCB Assembly" and choose "Assemble top side". [`fab/bom.csv`](fab/bom.csv) and [`fab/cpl.csv`](fab/cpl.csv) are
+the parts list and placement file in JLC's format. Before you pay, check every part's rotation in JLC's placement preview:
+their library sometimes disagrees with KiCad's. J1, J2 and J3 are "extended" parts at JLC, which adds a small fee per part type.
 
 ## How it works
 
